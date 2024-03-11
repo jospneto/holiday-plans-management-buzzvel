@@ -17,7 +17,7 @@ export const TabNavigator: React.FC = () => {
       boxShadow="sm"
       bottom={0}>
       <Icon as={FiCalendar} boxSize={10} color="gray.500" />
-      <CreateButton onCreate={() => console.log('criando...')} />
+      <CreateButton />
       <Avatar src='https://bit.ly/sage-adebayo' />
     </HStack>
   )
