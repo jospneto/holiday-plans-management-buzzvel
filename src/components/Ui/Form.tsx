@@ -3,7 +3,7 @@ import {
   FieldValues,
   FormProvider,
   SubmitHandler,
-  UseFormReturn
+  UseFormReturn,
 } from 'react-hook-form'
 
 import { Stack, StackProps } from '@chakra-ui/react'
@@ -23,15 +23,13 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>({
 }: FormProps<TFieldValues>) => {
   return (
     <FormProvider {...form}>
-      {onSubmit
-        ? (
+      {onSubmit ? (
         <Stack as="form" onSubmit={form.handleSubmit(onSubmit)} {...props}>
           {children}
         </Stack>
-          )
-        : (
-            children
-          )}
+      ) : (
+        children
+      )}
     </FormProvider>
   )
 }

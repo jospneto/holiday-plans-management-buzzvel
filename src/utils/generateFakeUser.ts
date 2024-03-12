@@ -3,9 +3,9 @@ import { v1 as uuid } from 'uuid'
 
 export const generateFakeUser = () => {
   return {
-    id: uuid(),
+    _id: uuid(),
     name: faker.person.firstName(),
     email: faker.internet.email(),
-    avatar: faker.image.avatar()
+    avatar: faker.image.avatar(),
   }
 }

@@ -1,2 +1,2 @@
 export * from './CreateButton'
-export * from './ListHolidayEvents'
+export * from './ListHolidayPlans'

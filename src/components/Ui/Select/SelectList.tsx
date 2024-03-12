@@ -5,7 +5,10 @@ interface SelectList {
   onRemove?: (participantId: string) => void
 }
 
-export const SelectList: React.FC<SelectList> = ({ selectedParticipants, onRemove }) => {
+export const SelectList: React.FC<SelectList> = ({
+  selectedParticipants,
+  onRemove,
+}) => {
   return (
     <HStack
       width="full"
@@ -15,10 +18,10 @@ export const SelectList: React.FC<SelectList> = ({ selectedParticipants, onRemov
       rounded="md"
       border="1px"
       borderColor="gray.200"
-      >
-      {selectedParticipants.map(s => (
+    >
+      {selectedParticipants.map((s) => (
         <Tag
-          key={s.id}
+          key={s._id}
           border="4px"
           borderColor="gray.100"
           borderRadius="full"
@@ -31,7 +34,7 @@ export const SelectList: React.FC<SelectList> = ({ selectedParticipants, onRemov
             marginRight={2}
           />
           <TagLabel>{s.name}</TagLabel>
-          <TagCloseButton onClick={() => onRemove?.(s.id)}/>
+          <TagCloseButton onClick={() => onRemove?.(s._id)} />
         </Tag>
       ))}
     </HStack>

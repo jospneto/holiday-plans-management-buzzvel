@@ -2,17 +2,17 @@
 type Fn<A = any[], R> = (...args: A) => R
 
 interface HolidayPlanParticipant {
-  id: string
+  _id: string
   avatar: string
   name: string
   email: string
 }
 
 interface HolidayPlan {
-  id: string
+  _id: string
   title: string
   description: string
   date: string
   location: string
-  participants: Array<HolidayPlanParticipant>
+  participants?: Array<HolidayPlanParticipant>
 }
