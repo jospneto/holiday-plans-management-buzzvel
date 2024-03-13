@@ -1,13 +1,23 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { Routes } from './routes'
 import { BrowserRouter } from 'react-router-dom'
+
+import { ChakraProvider } from '@chakra-ui/react'
+
+import { HolidayPlanProvider } from './contexts'
+import { Routes } from './routes'
 import { theme } from './styles/theme'
 
-function App () {
+function App() {
   return (
     <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <Routes />
+      <ChakraProvider
+        theme={theme}
+        toastOptions={{
+          defaultOptions: { position: 'top-right' },
+        }}
+      >
+        <HolidayPlanProvider>
+          <Routes />
+        </HolidayPlanProvider>
       </ChakraProvider>
     </BrowserRouter>
   )
