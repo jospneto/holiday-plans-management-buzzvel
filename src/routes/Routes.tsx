@@ -1,7 +1,7 @@
 import { Route, Routes as RouterDOMRoutes } from 'react-router-dom'
 
-import { ListHolidayPlans } from '../components'
 import { Layout } from '../layout'
+import { ListHolidayPlans } from '../pages'
 
 export const Routes: React.FC = () => {
   return (
