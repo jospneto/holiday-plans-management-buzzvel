@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import {
   Modal,
@@ -23,14 +23,19 @@ import { select } from '../../../constants'
 import { SelectList } from './SelectList'
 
 interface SelectProps {
+  defaultValues?: HolidayPlanParticipant[]
   onSelect: (holidayPlanParticipant: HolidayPlanParticipant[]) => void
 }
 
-export const Select: React.FC<SelectProps> = ({ onSelect }) => {
+interface FormattedParticipantsListProps extends HolidayPlanParticipant {
+  isChecked?: boolean
+}
+
+export const Select: React.FC<SelectProps> = ({ defaultValues, onSelect }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedParticipants, setSelectedParticipants] = useState<
     HolidayPlanParticipant[]
-  >([])
+  >(defaultValues ?? [])
 
   const onSelected = useCallback(
     (holidayPlanParticipant: HolidayPlanParticipant) => {
@@ -45,9 +50,8 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
         : [holidayPlanParticipant, ...updateSelectedParticipant]
 
       setSelectedParticipants(nextValue)
-      onSelect(nextValue)
     },
-    [onSelect, selectedParticipants],
+    [selectedParticipants],
   )
 
   const onRemove = useCallback((participantId: string) => {
@@ -56,7 +60,18 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
     )
   }, [])
 
-  const selectedParticipantsId = selectedParticipants.map((s) => s._id)
+  const selectedArray = defaultValues ? [...select, ...defaultValues] : select
+  const formattedParticipants: FormattedParticipantsListProps[] = select
+    ? selectedArray.map((p) =>
+        selectedParticipants.find((selected) => selected.name === p.name)
+          ? { ...p, isChecked: true }
+          : p,
+      )
+    : []
+
+  useEffect(() => {
+    onSelect(selectedParticipants)
+  }, [onSelect, selectedParticipants])
 
   return (
     <>
@@ -65,15 +80,16 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
           display="flex"
           width="full"
           height={12}
-          bgColor="white"
+          bgColor="gray.100"
           rounded="md"
           border="1px"
-          borderColor="gray.200"
+          borderColor="transparent"
           alignItems="center"
           justifyContent="flex-start"
           cursor="pointer"
           paddingLeft={4}
           onClick={onOpen}
+          data-testid="open-select-participants-any"
         >
           <Text as="span" color="gray.500">
             Click for adding participants
@@ -83,6 +99,7 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
       {!!selectedParticipants.length && (
         <SelectList
           selectedParticipants={selectedParticipants}
+          onOpen={onOpen}
           onRemove={onRemove}
         />
       )}
@@ -102,7 +119,12 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
             <ModalCloseButton display={{ base: 'none', sm: 'flex' }} />
           </ModalHeader>
           <ModalBody flex={1} minHeight={0} paddingX={0} paddingBottom={0}>
-            <Stack flex={1} minHeight={0} spacing={4}>
+            <Stack
+              data-testid="selected-participants-modal"
+              flex={1}
+              minHeight={0}
+              spacing={4}
+            >
               <Flex
                 flex={1}
                 flexDirection="column"
@@ -110,9 +132,10 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
                 maxHeight={{ base: 'none', sm: '400px' }}
                 width="full"
               >
-                {select.map((s) => (
+                {formattedParticipants.map((s) => (
                   <HStack
                     key={s?._id}
+                    data-testid="selected-participants"
                     spacing={4}
                     paddingY={4}
                     paddingX={{ base: 4, sm: 6 }}
@@ -124,10 +147,7 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
                     _hover={{
                       bg: 'gray.100',
                     }}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onSelected(s)
-                    }}
+                    onClick={() => onSelected(s)}
                   >
                     <HStack>
                       <Avatar src={s?.avatar} name={s?.name} size="sm" />
@@ -142,16 +162,16 @@ export const Select: React.FC<SelectProps> = ({ onSelect }) => {
                         {s?.name}
                       </Text>
                     </HStack>
-                    <Checkbox
-                      isChecked={!!selectedParticipantsId.includes(s._id)}
-                      onClick={() => onSelected(s)}
-                    />
+                    <Checkbox isChecked={s?.isChecked} />
                   </HStack>
                 ))}
               </Flex>
             </Stack>
           </ModalBody>
-          <ModalFooter paddingBottom={0}>
+          <ModalFooter
+            data-testid="selected-participants-modal-footer"
+            paddingBottom={0}
+          >
             <Button width="full" colorScheme="primary" onClick={onClose}>
               Selected
             </Button>

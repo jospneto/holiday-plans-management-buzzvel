@@ -4,8 +4,7 @@ export const getHolidayPlans = async () => {
   return api.get<HolidayPlan[]>('/holiday-plans').then((resp) => resp.data)
 }
 
-export interface HolidayPlanCreateOrUpdated
-  extends Exclude<HolidayPlan, '_id'> {}
+export interface HolidayPlanCreateOrUpdated extends Omit<HolidayPlan, '_id'> {}
 
 interface CreateOrUpdatedHolidayPlan {
   data: HolidayPlanCreateOrUpdated
@@ -21,6 +20,7 @@ export const createHolidayPlan = async ({
 
 interface DeleteOrUpdatedHolidayPlanParams {
   holidayPlanId: string
+  data?: HolidayPlanCreateOrUpdated
 }
 
 export const deleteHolidayPlan = async ({
@@ -33,8 +33,9 @@ export const deleteHolidayPlan = async ({
 
 export const updatedHolidayPlan = async ({
   holidayPlanId,
+  data,
 }: DeleteOrUpdatedHolidayPlanParams) => {
   return api
-    .put<HolidayPlan>(`/holiday-plan/${holidayPlanId}`)
+    .put<HolidayPlan>(`/holiday-plan/${holidayPlanId}`, data)
     .then((resp) => resp.data)
 }
