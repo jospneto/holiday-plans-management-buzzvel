@@ -16,4 +16,5 @@
   * Just run a command <strong color="black">npm run dev</strong>, since the package manager used was npm <img align="center" alt="JoseNeto-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/npm/npm-original-wordmark.svg">
   * In this case, it would be a way of shelving the front end. Here is the directory containing the information needed to run the back end.
     * https://github.com/jospneto/holiday-plans-management-api 📖
+    * URL of the application deployed in the cloud using Vercel <strong color="black">https://holiday-plans-management-buzzvel-josp.vercel.app/</strong> <img align="center" alt="JoseNeto-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vercel/vercel-original.svg">
   
