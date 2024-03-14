@@ -10,6 +10,7 @@
   * Cypress <img align="center" alt="JoseNeto-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cypressio/cypressio-original.svg">
   * Axios <img align="center" alt="JoseNeto-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/axios/axios-plain.svg">
 
+* The choice of Vite as the development environment for the project is due to the performance gain at build time, as well as the recommendation of the React.dev documentation itself, among other benefits.
 * The tests carried out were end-to-end tests, which aim to test both the back and the front of the system.
 * How to run the application? 🏃
   * Just run a command <strong color="black">npm run dev</strong>, since the package manager used was npm <img align="center" alt="JoseNeto-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/npm/npm-original-wordmark.svg">
