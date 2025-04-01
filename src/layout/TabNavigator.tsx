@@ -66,7 +66,7 @@ export const TabNavigator: React.FC = () => {
         size="sm"
         _hover={{ bgColor: 'primary.500' }}
       />
-      <Avatar size="sm" src={fakeUser.avatar} name={fakeUser.name} minW={0} />
+      <Avatar size="md" src={fakeUser.avatar} name={fakeUser.name} minW={0} />
     </Stack>
   )
 }
